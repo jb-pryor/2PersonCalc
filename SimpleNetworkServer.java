@@ -20,32 +20,49 @@ public class SimpleNetworkServer {
     output = new DataOutputStream(socket.getOutputStream());
     input = new DataInputStream(socket.getInputStream());
 
-    System.out.println("Please enter four numbers");
+    boolean alive = true;
 
-    int firstNum = scan.nextInt();
-    int secondNum = scan.nextInt(); // scanning four ints
-    int thirdNum = scan.nextInt();
-    int fourthNum = scan.nextInt();
+    while (alive) {
 
-    output.writeInt(firstNum);
-    output.writeInt(secondNum); // sending out first two numbers to other application
+      System.out.println("Please enter four numbers");
 
-    char operand = input.readChar(); // reads in operator
+      int firstNum = scan.nextInt();
+      int secondNum = scan.nextInt(); // scanning four ints
+      int thirdNum = scan.nextInt();
+      int fourthNum = scan.nextInt();
 
-    int result = 0;
+      output.writeInt(firstNum);
+      output.writeInt(secondNum); // sending out first two numbers to other application
 
-    switch (operand) { // same switch statement to determine char operator
-      case '+':
-        result = thirdNum + fourthNum;
-      case '-':
-        result = thirdNum - fourthNum;
-      case '/':
-        result = thirdNum / fourthNum;
-      case '*':
-        result = thirdNum * fourthNum;
+      char operand = input.readChar(); // reads in operator
+
+      int result = 0;
+
+      switch (operand) { // same switch statement to determine char operator
+        case '+':
+          result = thirdNum + fourthNum;
+          break;
+        case '-':
+          result = thirdNum - fourthNum;
+          break;
+        case '/':
+          result = thirdNum / fourthNum;
+          break;
+        case '*':
+          result = thirdNum * fourthNum;
+          break;
+      }
+      System.out.println("Result server compute: " + result);
+
+      String answer = scan.next();
+      System.out.println("Please enter 'y' to keep going or 'n' to exit.");
+      if (answer.equals("y")) {
+        alive = true;
+      } else {
+        alive = false;
+      }
+      output.writeBoolean(alive);
     }
-    System.out.println("Result server comput: " + result);
-
     socket.close();
     listener.close(); // close socket, listener, and scanner
     scan.close();

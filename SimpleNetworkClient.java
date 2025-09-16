@@ -20,29 +20,41 @@ public class SimpleNetworkClient {
     input = new DataInputStream(myClient.getInputStream());
     output = new DataOutputStream(myClient.getOutputStream());
 
-    System.out.println("Please enter in an operation +,-,/,*");
+    boolean alive = true;
 
-    char operand = scan.next().charAt(0);// scans in char
+    while (alive) {
 
-    output.writeChar(operand); // sends out char operator
+      System.out.println("Please enter in an operation +,-,/,*");
 
-    int fNum = input.readInt(); // reads in first two ints
-    int sNum = input.readInt();
+      char operand = scan.next().charAt(0);// scans in char
 
-    int result = 0; // declaring result
+      output.writeChar(operand); // sends out char operator
 
-    switch (operand) { // switch statement for char decision
-      case '+':
-        result = fNum + sNum;
-      case '-':
-        result = fNum - sNum;
-      case '/':
-        result = fNum / sNum;
-      case '*':
-        result = fNum * sNum;
+      int fNum = input.readInt(); // reads in first two ints
+      int sNum = input.readInt();
+
+      int result = 0; // declaring result
+
+      switch (operand) { // switch statement for char decision
+        case '+':
+          result = fNum + sNum;
+          break;
+        case '-':
+          result = fNum - sNum;
+          break;
+        case '/':
+          result = fNum / sNum;
+          break;
+        case '*':
+          result = fNum * sNum;
+          break;
+      }
+
+      System.out.println("Result client compute: " + result); // prints result
+
+      alive = input.readBoolean();
+
     }
-
-    System.out.println("Result client compute: " + result); // prints result
 
     myClient.close(); // closes server and scanner
     scan.close();
