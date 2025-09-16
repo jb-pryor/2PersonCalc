@@ -8,12 +8,12 @@ public class SimpleNetworkClient {
 
   public static void main(String[] args) throws Exception {
 
-    int portNum = 9959;
+    int portNum = 9959; // setting portnumber
 
     Scanner scan = new Scanner(System.in);
 
     DataInputStream input;
-    DataOutputStream output;
+    DataOutputStream output; // creating input output variables
 
     Socket myClient = new Socket("127.0.0.1", portNum); // 127.0.0.1 is localHost
 
@@ -22,16 +22,16 @@ public class SimpleNetworkClient {
 
     System.out.println("Please enter in an operation +,-,/,*");
 
-    char operand = scan.next().charAt(0);
+    char operand = scan.next().charAt(0);// scans in char
 
-    output.writeChar(operand);
+    output.writeChar(operand); // sends out char operator
 
-    int fNum = input.readInt();
+    int fNum = input.readInt(); // reads in first two ints
     int sNum = input.readInt();
 
-    int result = 0;
+    int result = 0; // declaring result
 
-    switch (operand) {
+    switch (operand) { // switch statement for char decision
       case '+':
         result = fNum + sNum;
       case '-':
@@ -42,9 +42,9 @@ public class SimpleNetworkClient {
         result = fNum * sNum;
     }
 
-    System.out.println("Result client compute: " + result);
+    System.out.println("Result client compute: " + result); // prints result
 
-    myClient.close();
+    myClient.close(); // closes server and scanner
     scan.close();
   }
 }

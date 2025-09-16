@@ -11,29 +11,30 @@ public class SimpleNetworkServer {
     Scanner scan = new Scanner(System.in);
 
     DataInputStream input;
-    DataOutputStream output;
+    DataOutputStream output; // input output variables
 
-    ServerSocket listener = new ServerSocket(portNum);
+    ServerSocket listener = new ServerSocket(portNum); // creating serversocket to connect to server
 
-    Socket socket = listener.accept();
+    Socket socket = listener.accept(); // listener accept to connect to server
 
     output = new DataOutputStream(socket.getOutputStream());
     input = new DataInputStream(socket.getInputStream());
 
     System.out.println("Please enter four numbers");
+
     int firstNum = scan.nextInt();
-    int secondNum = scan.nextInt();
+    int secondNum = scan.nextInt(); // scanning four ints
     int thirdNum = scan.nextInt();
     int fourthNum = scan.nextInt();
 
     output.writeInt(firstNum);
-    output.writeInt(secondNum);
+    output.writeInt(secondNum); // sending out first two numbers to other application
 
-    char operand = input.readChar();
+    char operand = input.readChar(); // reads in operator
 
     int result = 0;
 
-    switch (operand) {
+    switch (operand) { // same switch statement to determine char operator
       case '+':
         result = thirdNum + fourthNum;
       case '-':
@@ -46,7 +47,7 @@ public class SimpleNetworkServer {
     System.out.println("Result server comput: " + result);
 
     socket.close();
-    listener.close();
+    listener.close(); // close socket, listener, and scanner
     scan.close();
 
   }
